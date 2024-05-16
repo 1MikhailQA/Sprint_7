@@ -4,9 +4,9 @@ from helper import CourierRandom
 from scooter_api import CourierMethods
 
 
-@allure.title("Логин курьера")
+@allure.feature("Логин курьера")
 class TestLoginCourier:
-    @allure.description("Проверка успешного логина курьера.")
+    @allure.title("Проверка успешного логина курьера.")
     def test_login_courier_success(self, create_account_courier):
         login_courier = CourierMethods.create_and_login_courier(create_account_courier)
         assert login_courier.status_code == 200 and login_courier.json()['id'] != 0
@@ -20,7 +20,7 @@ class TestLoginCourier:
         response = CourierMethods.create_and_login_courier(payload)
         assert response.status_code == 400 and response.json()['message'] == 'Недостаточно данных для входа'
 
-    @allure.description('Проверка невозможности залогиниться с несуществующим аккаунтом.')
+    @allure.title('Проверка невозможности залогиниться с несуществующим аккаунтом.')
     def test_no_such_login(self):
         user_data = CourierRandom.generate_random_courier_data()
         response = CourierMethods.login_courier(user_data)
